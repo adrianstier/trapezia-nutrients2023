@@ -31,7 +31,13 @@ ggplot(rardf,aes(x=crab,y=rar,colour=nutrients))+
 #beta jac
 beta_j=vegdist(x_orig,method="jaccard",binary=T)
 
+#composition
 adonis2(x_orig~crab+nutrients,method="jaccard")
+
+#beta diversity
+betamod<-betadisper(beta_j,ttt,type="median")
+permutest(betamod, permutations = 999)
+
 
 ###nmds on bray curtis dissimilarity matrix
 mds_out<-metaMDS(x_orig,distance="jaccard",binary=T)
